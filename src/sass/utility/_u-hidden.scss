@@ -1,0 +1,16 @@
+@use "global" as *;
+
+.u-hidden-pc {
+	// PC時に非表示
+	@include mq(sm) {
+		display: none;
+	}
+}
+
+.u-hidden-sp {
+	// スマホ時に非表示
+	display: none;
+	@include mq(sm) {
+		display: block;
+	}
+}

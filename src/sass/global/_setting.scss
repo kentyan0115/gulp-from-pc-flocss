@@ -1,0 +1,68 @@
+@use "sass:math";
+
+////////////////////
+// インナー幅設定
+////////////////////
+// コンテンツのインナー幅（最も共通の幅が多い部分）
+$inner: 1200px;
+
+// 余白
+$padding-pc: 25px;
+$padding-sp: 20px;
+
+
+////////////////////
+// 色の指定
+////////////////////
+
+//色指定（共通性のあるものは出来る限り指定すると良い）
+$font-color: #000;
+
+
+////////////////////
+// フォント設定
+////////////////////
+
+$base-font-family: "";
+
+html {
+  font-family: $base-font-family;
+  color: $font-color;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+
+////////////////////
+// メディアクエリとブレークポイントの設定
+////////////////////
+
+//ブレイクポイント
+$breakpoints: (
+  sm: 767,
+  md: 1023,
+  lg: 1200,
+);
+
+//スクリーンサイズ
+$screen-min: 375px;
+$screen-max: 1920px;
+
+//メディアクエリー
+$mediaquerys: (
+  sm: "screen and (max-width: #{map-get($breakpoints,'sm') }px)",
+  md: "screen and (max-width: #{map-get($breakpoints,'md') }px)",
+  lg: "screen and (max-width: #{map-get($breakpoints,'lg') }px)",
+);
+
+// @include mq(){}で書くとブレークポイントが反映される（初期値はmd）
+@mixin mq($mediaquery: md) {
+  @media #{map-get($mediaquerys, $mediaquery)} {
+    @content;
+  }
+}
+
+// remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
+@function rem($pixels) {
+  @return math.div($pixels, 16) * 1rem;
+}
